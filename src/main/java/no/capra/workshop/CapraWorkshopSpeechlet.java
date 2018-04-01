@@ -2,9 +2,10 @@ package no.capra.workshop;
 
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.*;
-import com.amazon.speech.ui.PlainTextOutputSpeech;
+import no.capra.workshop.functions.HelpSpeechletResponse;
 import no.capra.workshop.functions.ProvideKeyword;
 import no.capra.workshop.functions.RequestKeyword;
+import no.capra.workshop.util.CapraWorkshopUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,10 +23,11 @@ public class CapraWorkshopSpeechlet implements Speechlet {
     static{
         intentMap.put("getKeyword", new RequestKeyword());
         intentMap.put("provideKeyword", new ProvideKeyword());
+        intentMap.put("AMAZON.HelpIntent", new HelpSpeechletResponse());
     }
 
     @Override
-    public SpeechletResponse onIntent(IntentRequest request, Session session) throws SpeechletException {
+    public SpeechletResponse onIntent(IntentRequest request, Session session) {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(), session.getSessionId());
 
         return Stream.of(request.getIntent())
@@ -35,14 +37,7 @@ public class CapraWorkshopSpeechlet implements Speechlet {
                      .peek(intent -> log.info(String.format("Intent %s with slots %s ", intent.getName(), intent.getSlots())))
                      .map(intent -> intentMap.get(intent.getName()).apply(intent.getSlots()))
                      .findAny()
-                     .orElse(defaultSpeechletResponse());
-    }
-
-    private SpeechletResponse defaultSpeechletResponse() {
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText("I don't understand your request.");
-
-        return SpeechletResponse.newTellResponse(speech);
+                     .orElse(CapraWorkshopUtil.defaultSpeechletResponse());
     }
 
     @Override
