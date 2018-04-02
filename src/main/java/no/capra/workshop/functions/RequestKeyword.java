@@ -28,32 +28,33 @@ public class RequestKeyword implements Function<Map<String, Slot>, SpeechletResp
     public SpeechletResponse apply(Map<String, Slot> slots) {
 
         return Stream.of(slots)
-                     .map(map -> map.get("teamName"))
-                     .map(Optional::ofNullable)
-                     .filter(Optional::isPresent)
-                     .map(Optional::get)
-                     .map(Slot::getValue)
-                     .peek(slot -> log.info(String.format("The slots is %s ", slot)))
-                     .map(this::callRequestKeywordLambdaFunction)
-                     .filter(Optional::isPresent)
-                     .map(Optional::get)
-                     .map(keyword -> {
-                         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                         speech.setText(String.format("Your team's keyword is %s", keyword));
-                         return speech; })
-                     .map(SpeechletResponse::newTellResponse)
-                     .findAny()
-                     .orElse(defaultSpeechletResponse());
+                .map(map -> map.get("teamName"))
+                .map(Optional::ofNullable)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(Slot::getValue)
+                .peek(slot -> log.info(String.format("The slots is %s ", slot)))
+                .map(this::callRequestKeywordLambdaFunction)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(keyword -> {
+                    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                    speech.setText(String.format("Your team's keyword is %s", keyword));
+                    return speech;
+                })
+                .map(SpeechletResponse::newTellResponse)
+                .findAny()
+                .orElse(defaultSpeechletResponse());
     }
 
     private Optional<String> callRequestKeywordLambdaFunction(String teamname) {
         return Stream.of(performGet(teamname))
-                     .filter(Optional::isPresent)
-                     .map(Optional::get)
-                     .map(this::handleResponse)
-                     .filter(Optional::isPresent)
-                     .map(Optional::get)
-                     .findAny();
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(this::handleResponse)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findAny();
     }
 
     private Optional<String> handleResponse(HttpURLConnection con) {
@@ -72,7 +73,7 @@ public class RequestKeyword implements Function<Map<String, Slot>, SpeechletResp
             in.close();
 
             return Optional.ofNullable(keyword);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return Optional.empty();
         }

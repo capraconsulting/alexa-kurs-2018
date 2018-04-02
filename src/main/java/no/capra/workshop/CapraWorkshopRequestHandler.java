@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.HashSet;
 
-public class CapraWorkshopRequestHandler  extends SpeechletRequestStreamHandler {
+public class CapraWorkshopRequestHandler extends SpeechletRequestStreamHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CapraWorkshopRequestHandler.class);
 

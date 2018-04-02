@@ -20,7 +20,7 @@ public class CapraWorkshopSpeechlet implements Speechlet {
     private static final Logger log = LoggerFactory.getLogger(CapraWorkshopSpeechlet.class);
     private static final Map<String, Function<Map<String, Slot>, SpeechletResponse>> intentMap = new HashMap<>();
 
-    static{
+    static {
         intentMap.put("getKeyword", new RequestKeyword());
         intentMap.put("provideKeyword", new ProvideKeyword());
         intentMap.put("AMAZON.HelpIntent", new HelpSpeechletResponse());
@@ -31,13 +31,13 @@ public class CapraWorkshopSpeechlet implements Speechlet {
         log.info("onIntent requestId={}, sessionId={}", request.getRequestId(), session.getSessionId());
 
         return Stream.of(request.getIntent())
-                     .map(Optional::ofNullable)
-                     .filter(Optional::isPresent)
-                     .map(Optional::get)
-                     .peek(intent -> log.info(String.format("Intent %s with slots %s ", intent.getName(), intent.getSlots())))
-                     .map(intent -> intentMap.get(intent.getName()).apply(intent.getSlots()))
-                     .findAny()
-                     .orElse(CapraWorkshopUtil.defaultSpeechletResponse());
+                .map(Optional::ofNullable)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .peek(intent -> log.info(String.format("Intent %s with slots %s ", intent.getName(), intent.getSlots())))
+                .map(intent -> intentMap.get(intent.getName()).apply(intent.getSlots()))
+                .findAny()
+                .orElse(CapraWorkshopUtil.defaultSpeechletResponse());
     }
 
     @Override

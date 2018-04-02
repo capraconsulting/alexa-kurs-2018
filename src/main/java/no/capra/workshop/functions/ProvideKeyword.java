@@ -26,21 +26,22 @@ public class ProvideKeyword implements Function<Map<String, Slot>, SpeechletResp
     public SpeechletResponse apply(Map<String, Slot> slots) {
 
         return Stream.of(slots)
-                     .map(map -> map.get("teamKeyword"))
-                     .map(Optional::ofNullable)
-                     .filter(Optional::isPresent)
-                     .map(Optional::get)
-                     .map(Slot::getValue)
-                     .peek(slot -> log.info(String.format("The slots is %s ", slot)))
-                     .map(this::callProvideKeywordLambdaFunction)
-                     .filter(result -> result.equals(true))
-                     .map(success -> {
-                         PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                         speech.setText("You made it. Check the color on the light bulb.");
-                         return speech; })
-                     .map(SpeechletResponse::newTellResponse)
-                     .findAny()
-                     .orElse(defaultSpeechletResponse());
+                .map(map -> map.get("teamKeyword"))
+                .map(Optional::ofNullable)
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .map(Slot::getValue)
+                .peek(slot -> log.info(String.format("The slots is %s ", slot)))
+                .map(this::callProvideKeywordLambdaFunction)
+                .filter(result -> result.equals(true))
+                .map(success -> {
+                    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
+                    speech.setText("You made it. Check the color on the light bulb.");
+                    return speech;
+                })
+                .map(SpeechletResponse::newTellResponse)
+                .findAny()
+                .orElse(defaultSpeechletResponse());
     }
 
     private SpeechletResponse defaultSpeechletResponse() {

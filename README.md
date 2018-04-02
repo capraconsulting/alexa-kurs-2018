@@ -1,1 +1,2 @@
-#Alexa kurs med Capra 2018
+# Kurs med Capra Consulting AS
+
