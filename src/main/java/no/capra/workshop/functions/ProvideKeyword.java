@@ -53,7 +53,7 @@ public class ProvideKeyword implements Function<Map<String, Slot>, SpeechletResp
 
     private Boolean callProvideKeywordLambdaFunction(String keyword) {
         try {
-            String url = String.format("https://sh8yiobwrk.execute-api.us-east-1.amazonaws.com/Develop/CapraWorkshopProvideKeyword?keyword=%s", keyword);
+            String url = String.format("https://m9ezyn00zd.execute-api.us-east-1.amazonaws.com/Develop/provideKeywordRoomOne?keyword=%s", keyword);
             URL obj = new URL(url);
             HttpURLConnection con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");

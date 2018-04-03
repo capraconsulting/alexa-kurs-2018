@@ -82,7 +82,7 @@ public class RequestKeyword implements Function<Map<String, Slot>, SpeechletResp
     private Optional<HttpURLConnection> performGet(String teamname) {
         HttpURLConnection con = null;
         try {
-            String url = String.format("https://sh8yiobwrk.execute-api.us-east-1.amazonaws.com/Develop/CapraWorkshopRequestKeyword?teamname=%s", teamname);
+            String url = String.format("https://m9ezyn00zd.execute-api.us-east-1.amazonaws.com/Develop/requestKeywordRoomOne?teamname=%s", teamname);
             URL obj = new URL(url);
             con = (HttpURLConnection) obj.openConnection();
             con.setRequestMethod("GET");
