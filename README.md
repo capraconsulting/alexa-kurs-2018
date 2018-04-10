@@ -76,7 +76,8 @@ Når dere setter feltet Rolle" til "customer role" vil dere bli sendt til en IAM
 
 ![IAM Role](./figs/iam-role.png)
 
-Bygg Java-koden som er inkludert i dette repo-et (se egne instrukser). Last deretter opp Java-koden som skal kjøres av Lambda-funksjonen (velg den som heter "...with-dependencies.jar"). Husk å lagre Lambda-funksjonen.
+Bygg Java-koden som er inkludert i dette repo-et (se egne instrukser). Last deretter opp Java-koden som skal kjøres av Lambda-funksjonen (velg den som heter "...with-dependencies.jar").
+Sett *Handler* til verdien `no.capra.workshop.CapraWorkshopRequestHandler`. Husk å lagre Lambda-funksjonen.
 
 ![Lambda .jar upload](./figs/upload-jar.png)
 
