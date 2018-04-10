@@ -10,8 +10,11 @@ public class CapraWorkshopRequestHandler extends SpeechletRequestStreamHandler {
 
     private static final Logger log = LoggerFactory.getLogger(CapraWorkshopRequestHandler.class);
 
+    /**
+     * This does not seem interesting.
+     * I suggest looking at CapraWorkshopSpeechlet.
+     */
     public CapraWorkshopRequestHandler() {
         super(new CapraWorkshopSpeechlet(), new HashSet<>());
-        log.debug("Hit the SpeechletRequestStreamHandler.");
     }
 }

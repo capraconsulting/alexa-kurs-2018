@@ -2,17 +2,9 @@ package no.capra.workshop.functions;
 
 import com.amazon.speech.slu.Slot;
 import com.amazon.speech.speechlet.SpeechletResponse;
-import com.amazon.speech.ui.PlainTextOutputSpeech;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import no.capra.workshop.util.LambdaHelper;
+import no.capra.workshop.util.WorkshopHelper;
 
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
@@ -20,8 +12,11 @@ import java.util.stream.Stream;
 
 public class ProvideKeyword implements Function<Map<String, Slot>, SpeechletResponse> {
 
-    private static final Logger log = LoggerFactory.getLogger(ProvideKeyword.class);
+    private static final String PROVIDE_KEYWORD_URL = "https://m9ezyn00zd.execute-api.us-east-1.amazonaws.com/Develop/provideKeywordRoomOne";
 
+    /**
+     * This method is called when provideKeyword Intent is triggered
+     */
     @Override
     public SpeechletResponse apply(Map<String, Slot> slots) {
 
@@ -31,59 +26,20 @@ public class ProvideKeyword implements Function<Map<String, Slot>, SpeechletResp
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .map(Slot::getValue)
-                .peek(slot -> log.info(String.format("The slots is %s ", slot)))
                 .map(this::callProvideKeywordLambdaFunction)
                 .filter(result -> result.equals(true))
-                .map(success -> {
-                    PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-                    speech.setText("You made it. Check the color on the light bulb.");
-                    return speech;
-                })
-                .map(SpeechletResponse::newTellResponse)
+                .map(success -> WorkshopHelper.convertTextToSpeechResponse("You made it. Check the color on the light bulb."))
                 .findAny()
-                .orElse(defaultSpeechletResponse());
+                .orElse(WorkshopHelper.getIDontUnderstandResponse());
     }
 
-    private SpeechletResponse defaultSpeechletResponse() {
-        PlainTextOutputSpeech speech = new PlainTextOutputSpeech();
-        speech.setText("I don't understand your request.");
-
-        return SpeechletResponse.newTellResponse(speech);
-    }
-
+    /**
+     * Method calling the lambda function "provideKeyword" with keyword as a query param
+     * Returns true if lambda method have been triggered.
+     * Returns false if the call fails.
+     */
     private Boolean callProvideKeywordLambdaFunction(String keyword) {
-        try {
-            String url = String.format("https://m9ezyn00zd.execute-api.us-east-1.amazonaws.com/Develop/provideKeywordRoomOne?keyword=%s", keyword);
-            URL obj = new URL(url);
-            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Content-Type", "application/json");
-            con.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-            wr.flush();
-            wr.close();
-
-            log.debug("\nSending 'GET' request to URL : " + url);
-
-            int responseCode = con.getResponseCode();
-            log.debug("Response Code : " + responseCode);
-
-            BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            //print result
-            log.debug(response.toString());
-
-            in.close();
-
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
+        String url = keyword; // This does not seem right
+        return LambdaHelper.callProvideKeywordLambdaFunction(url);
     }
 }

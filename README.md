@@ -1,15 +1,22 @@
 # Kurs med Capra Consulting AS
 
+
 # Oppgave
 
-* Få Alexa til å trigge en lambda funksjon
-* Si til Alexa hva teamnavnet deres er
-* Få Alexa til å hente kodeordet til teamet deres fra en skjult lambda funksjon
-* Si til Alexa hva kodeordet deres er
-* Se om lampen lyser opp
-* Førsteman ferdig vinner egen høytaler
+1. Konfigurer en Alexa skill for å hente kodeordet til teamet deres fra en Lambda-funksjon
+2. Utvid kodebasen, Alexa skill-en og Lambda-funksjonen til å sende inn kodeordet deres
+3. Når riktig kodeord blir sendt inn vil lampen fremst i rommet lyse opp i teamet sin farge.
+4. Det vanker premie for første team som blir ferdig
 
-# Sett opp en Alexa Skill
+![Task flow](./figs/flow.png)
+
+# Forutsetninger
+
+* Java 8
+* Maven
+* Git
+
+# Hvordan sette opp en Alexa skill
 
 Gå til https://www.developer.amazon.com/alexa/console/ask og logg inn med brukernavn og passord som dere har fått utdelt.
 
@@ -25,7 +32,7 @@ Trykk *Next* og velg *Custom* som model for skill-en
 
 ![Skill model](./figs/skill-model.png)
 
-Trykk *Create Skill*. Dette vil ta dere til skill-siden i Alexa sin console
+Trykk *Create Skill*. Dette vil ta dere til skill-siden i Alexa sin konsoll
 
 ![Alexa skill builder](./figs/skill-builder-checklist.png)
 
@@ -43,7 +50,7 @@ For hver *intent* trenger vi "utterances" som er setninger som trigger endepunkt
 
 *Interfaces* trenger man ikke å røre, men vi må sette opp *endpoint* for Alexa-skillen. Dette vil være endepunktet som Alexa gjør et request mot når skill-en blir trigget. Endepunktet vi skal bruke her er en AWS Lambda funksjon, så la oss sette opp det først.
 
-# Sett opp AWS Lambda-funksjon
+# Hvordan sette opp en AWS Lambda-funksjon
 
 Gå til https://console.aws.amazon.com/console/home?region=us-east-1 og logg inn med brukernavn og passord som dere har fått utdelt. Dette er ikke samme brukernavnet og passordet som til Alexa-konsollen. Når dere har logget inn trykker dere *Services* i meny-en på toppen.
 
@@ -87,7 +94,7 @@ I Alexa-konsollen velger dere *Endpoint* i menyen til høyre. Under feltet *Defa
 
 Nå skal dere kunne snakke til Echo-høytaleren deres og på den måte trigge koden som ligger i AWS sin lambda funksjon. 
 
-# Bygg koden 
+# Bygg koden før opplastning til AWS
 
 Koden bygges ved hjelp av Maven. Dette må installeres hvis det ikke allerede er installert.
 Kjør følgende kommando:
