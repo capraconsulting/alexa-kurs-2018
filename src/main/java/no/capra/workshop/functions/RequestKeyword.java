@@ -15,7 +15,8 @@ import static java.lang.String.*;
 
 public class RequestKeyword implements Function<Map<String, Slot>, SpeechletResponse> {
 
-    private static final String REQUEST_KEYWORD_URL = "https://m9ezyn00zd.execute-api.us-east-1.amazonaws.com/Develop/requestKeywordRoomOne";
+    private static final String WORKSHOP_API_URL = System.getenv("WORKSHOP_API_URL");
+    private static final String ROOM_NUMBER = System.getenv("ROOM_NUMBER");
 
     /**
      * This method is called when requestKeyword Intent is triggered
@@ -41,7 +42,7 @@ public class RequestKeyword implements Function<Map<String, Slot>, SpeechletResp
      * Returns the teamname as a string
      */
     private Optional<String> callRequestKeywordLambdaFunction(String teamname) {
-        String url = format("%s?teamname=%s", REQUEST_KEYWORD_URL, teamname);
+        String url = format("%s/request-keyword-%s?teamname=%s", WORKSHOP_API_URL, ROOM_NUMBER, teamname);
         return LambdaHelper.callRequestKeywordLambdaFunction(url);
     }
 

@@ -10,9 +10,12 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
+import static java.lang.String.format;
+
 public class ProvideKeyword implements Function<Map<String, Slot>, SpeechletResponse> {
 
-    private static final String PROVIDE_KEYWORD_URL = "https://m9ezyn00zd.execute-api.us-east-1.amazonaws.com/Develop/provideKeywordRoomOne";
+    private static final String WORKSHOP_API_URL = System.getenv("WORKSHOP_API_URL");
+    private static final String ROOM_NUMBER = System.getenv("ROOM_NUMBER");
 
     /**
      * This method is called when provideKeyword Intent is triggered
@@ -39,7 +42,7 @@ public class ProvideKeyword implements Function<Map<String, Slot>, SpeechletResp
      * Returns false if the call fails.
      */
     private Boolean callProvideKeywordLambdaFunction(String keyword) {
-        String url = keyword; // This does not seem right
+        String url = format("provide-keyword-%s?keyword=%s", ROOM_NUMBER, keyword); // This does not seem right
         return LambdaHelper.callProvideKeywordLambdaFunction(url);
     }
 }
