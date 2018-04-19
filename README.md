@@ -18,7 +18,7 @@
 
 # Hvordan sette opp en Alexa skill
 
-Gå til https://www.developer.amazon.com/alexa/console/ask og logg inn med brukernavn og passord som dere har fått utdelt.
+Gå til https://www.developer.amazon.com/alexa og logg inn med brukernavn og passord som dere har fått utdelt.
 
 Trykk på *Create Skill*
 
@@ -101,7 +101,7 @@ Koden bygges ved hjelp av Maven. Dette må installeres hvis det ikke allerede er
 Kjør følgende kommando:
 
 ```
-$ mvn clean package
+$ ./mvnw clean package
 ```
 
 Nå ligger det en fil i mappen `target` som heter `workshop-1.0-jar-with-dependencies.jar`. Dette er koden som skal lastes opp til AWS Lambda-funksjonen.
