@@ -18,7 +18,7 @@
 
 # Hvordan sette opp en Alexa skill
 
-Gå til https://www.developer.amazon.com/alexa og logg inn med brukernavn og passord som dere har fått utdelt.
+Gå til https://developer.amazon.com/alexa og logg inn med brukernavn og passord som dere har fått utdelt.
 
 Trykk på *Create Skill*
 
