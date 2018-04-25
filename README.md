@@ -107,3 +107,11 @@ $ ./mvnw clean package
 ```
 
 Nå ligger det en fil i mappen `target` som heter `workshop-1.0-jar-with-dependencies.jar`. Dette er koden som skal lastes opp til AWS Lambda-funksjonen.
+
+
+
+# Ekstraoppgaver
+
+1. Sett opp AWS API Gateway mot Lambda-tjenesten og trigg lyset ved hjelp av API-kall
+
+2. Lag en helt ny skill og Lambda-function som gir deg avgangstider for nærmeste stoppested (fra APIet til Entur http://www.entur.org/dev/api)
