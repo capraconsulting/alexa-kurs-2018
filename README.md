@@ -40,7 +40,7 @@ Gå gjennom punktene 1-4 under "Skill builder checklist" for å sette opp skill-
 
 ![Invocation](./figs/invocation-name.png)
 
-Sett deretter opp *intents*. Tenk på *intents* som endepunkter for Alexa. Her trenger vi et som heter *provideKeyword* og et som heter *requestKeyword*
+Sett deretter opp *intents*. Tenk på *intents* som endepunkter for Alexa. Her trenger vi et som heter *provideKeyword* og et som heter *getKeyword*
 
 ![Intent](./figs/intent.png)
 
