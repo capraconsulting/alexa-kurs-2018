@@ -95,6 +95,8 @@ I Alexa-konsollen velger dere *Endpoint* i menyen til høyre. Under feltet *Defa
 
 Nå skal dere kunne snakke til Echo-høytaleren deres og på den måte trigge koden som ligger i AWS sin lambda funksjon. 
 
+For å sjekke at koblingen mellom Alexa og Lambda'en fungerer, si til Alexa: "Alexa ask Alfred help". 
+
 # Bygg koden før opplastning til AWS
 
 Koden bygges ved hjelp av Maven. Dette må installeres hvis det ikke allerede er installert.
